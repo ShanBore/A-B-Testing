@@ -1,0 +1,55 @@
+install.packages("tidyverse")
+install.packages("broom")
+
+library(tidyverse)
+library(broom)
+
+data <- read_csv("/Users/email_campaign.csv")
+
+set.seed(123)  # set up seed for reproducibility
+
+data <- tibble(
+  Recipient_ID = 1:1000,
+  Email_Version = sample(c("A", "B"), 1000, replace = TRUE),
+  Click_Through_Rate = c(
+    rbinom(500, 1, 0.10),  # Version A with a 10% click-through rate
+    rbinom(500, 1, 0.15)   # Version B with a 15% click-through rate
+  )
+)
+
+glimpse(data)
+summary(data)
+
+click_through_rates <- data %>%
+  group_by(Email_Version) %>%
+  summarise(
+    Count = n(),
+    Clicks = sum(Click_Through_Rate),
+    CTR = mean(Click_Through_Rate)
+  )
+
+print(click_through_rates)
+
+# Creating a contingency table
+contingency_table <- table(data$Email_Version, data$Click_Through_Rate)
+
+# Performing chi-squared test
+chi_squared_test <- chisq.test(contingency_table)
+tidy(chi_squared_test)
+
+
+if (chi_squared_test$p.value < 0.05) {
+  cat("Reject null hypothesis: There is a significant difference between the click-through rates of Version A and Version B.\n")
+} else {
+  cat("Fail to reject null hypothesis: There is no significant difference between the click-through rates of Version A and Version B.\n")
+}
+
+click_through_rates %>%
+  ggplot(aes(x = Email_Version, y = CTR, fill = Email_Version)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Click-Through Rates by Email Version",
+    x = "Email Version",
+    y = "Click-Through Rate"
+  ) +
+  theme_minimal()
