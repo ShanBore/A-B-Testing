@@ -1,6 +1,8 @@
+# Overview
+
 This project aims to optimize the engagement rates of an email marketing campaign by comparing two different versions of an email, labeled Version A and Version B. The objective is to determine which version yields a higher click-through rate (CTR) and to make data-driven decisions to enhance future email marketing strategies. The analysis will be conducted using the R programming language.
 
-Dataset:
+# Dataset:
 The dataset, email_campaign.csv, consists of 1,000 records and includes the following columns:
 
 Recipient_ID: A unique identifier for each email recipient.
@@ -8,10 +10,10 @@ Email_Version: Indicates whether the recipient received Version A or Version B o
 Click_Through_Rate: Indicates whether the recipient clicked on a link within the email (1 for click, 0 for no click).
 Steps:
 
-Data Collection and Loading:
+## Data Collection and Loading:
 The dataset is loaded into R for analysis. Initial data exploration checks for missing values, outliers, and data consistency.
 
-Hypothesis Formulation:
+## Hypothesis Formulation:
 
 Null Hypothesis (H0): There is no significant difference in click-through rates between Version A and Version B.
 Alternative Hypothesis (H1): Version B has a higher click-through rate than Version A.
@@ -30,7 +32,7 @@ Analyze the p-value from the chi-squared test. A p-value below 0.05 indicates a 
 Visualization:
 Create bar plots to visually compare the click-through rates of the two email versions.
 
-Conclusion and Recommendations:
+## Conclusion and Recommendations:
 Summarize the findings and provide actionable recommendations based on the results. If Version B performs better, it should be implemented in future email campaigns.
 
 Documentation:
